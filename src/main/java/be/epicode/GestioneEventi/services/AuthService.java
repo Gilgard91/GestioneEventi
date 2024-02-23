@@ -23,8 +23,10 @@ public class AuthService {
     private JWTTools jwtTools;
 
 
-    public User save(UserDTO body){
-        User newUser = new User(body.nome(),body.cognome(),body.email(),body.password(),body.ruolo());
+
+
+    public User saveUser(UserDTO body){
+        User newUser = new User(body.nome(),body.cognome(),body.email(),bcrypt.encode(body.password()),body.ruolo());
         return usersDAO.save(newUser);
     }
 

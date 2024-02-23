@@ -28,4 +28,6 @@ public class UsersService {
     public List<User> getUsersById(List<Integer> usersIds){
         return usersDAO.findAllById(usersIds);
     }
+
+
 }
