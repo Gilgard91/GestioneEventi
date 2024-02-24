@@ -33,11 +33,20 @@ public class ExceptionsHandler {
         return new ErrorsPayload(e.getMessage(), LocalDateTime.now());
     }
 
+    @ExceptionHandler(UnauthorizedException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ErrorsPayload handleUnauthorized(Exception e){
+        e.printStackTrace();
+        return new ErrorsPayload("Accesso negato", LocalDateTime.now());
+    }
+
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorsPayload handleGeneric(Exception e) {
         e.printStackTrace();
         return new ErrorsPayload("Errore generico, risolveremo il prima possibile", LocalDateTime.now());
     }
+
+
 
 }

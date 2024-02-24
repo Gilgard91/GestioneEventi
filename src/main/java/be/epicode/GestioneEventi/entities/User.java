@@ -31,9 +31,12 @@ public class User implements UserDetails {
     private Ruolo ruolo;
 
     @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "evento_id")
-    private Evento evento;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "utenti_eventi",
+            joinColumns = @JoinColumn(name = "utente_id"),
+            inverseJoinColumns = @JoinColumn(name = "evento_id"))
+    private List<Evento> eventi;
 
     public User(String nome, String cognome, String email, String password, Ruolo ruolo) {
         this.nome = nome;
@@ -70,6 +73,14 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
+        return false;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof User user) {
+            return user.id == this.id;
+        }
         return false;
     }
 }

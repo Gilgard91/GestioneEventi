@@ -24,7 +24,7 @@ public class Evento {
     @Column(name = "posti_disponibili")
     private long postiDisponibili;
 
-    @OneToMany(mappedBy = "evento")
+    @ManyToMany(mappedBy = "eventi", cascade = CascadeType.ALL)
     List<User> utenti;
 
     public Evento(String titolo, String descrizione, LocalDate data, String luogo, long postiDisponibili) {
